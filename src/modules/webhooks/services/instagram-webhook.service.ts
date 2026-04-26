@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { createLogger } from '../../../shared/utils/logger';
+
+const logger = createLogger('InstagramWebhookService');
 
 @Injectable()
 export class InstagramWebhookService {
   handleVerification(mode: string, token: string, challenge: string, verifyToken: string): string | null {
     if (mode === 'subscribe' && token === verifyToken) {
-      return challenge;
+      // Sanitize challenge: only alphanumeric characters and hyphens are expected
+      return challenge.replace(/[^a-zA-Z0-9_-]/g, '');
     }
     return null;
   }
@@ -21,6 +25,6 @@ export class InstagramWebhookService {
   }
 
   private async processEvent(event: any): Promise<void> {
-    console.log('Instagram event received:', event.sender?.id);
+    logger.info('Instagram event received', { senderId: event.sender?.id });
   }
 }

@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { createLogger } from '../../../shared/utils/logger';
+
+const logger = createLogger('WhatsappWebhookService');
 
 @Injectable()
 export class WhatsappWebhookService {
   handleVerification(mode: string, token: string, challenge: string, verifyToken: string): string | null {
     if (mode === 'subscribe' && token === verifyToken) {
-      return challenge;
+      // Sanitize challenge: only alphanumeric characters and hyphens are expected
+      return challenge.replace(/[^a-zA-Z0-9_-]/g, '');
     }
     return null;
   }
@@ -23,6 +27,6 @@ export class WhatsappWebhookService {
   }
 
   private async processMessage(message: any, _metadata: any): Promise<void> {
-    console.log('WhatsApp message received:', message.id);
+    logger.info('WhatsApp message received', { messageId: message.id });
   }
 }

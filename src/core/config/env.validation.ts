@@ -10,7 +10,7 @@ export function validateEnv(config: Record<string, unknown>) {
     DATABASE_USERNAME: Joi.string().default('dolma'),
     DATABASE_PASSWORD: Joi.string().default('dolma_password'),
     DATABASE_NAME: Joi.string().default('dolma_ai'),
-    DATABASE_SSL: Joi.boolean().default(false),
+    DATABASE_SSL: Joi.string().valid('true', 'false').default('false'),
     REDIS_HOST: Joi.string().default('localhost'),
     REDIS_PORT: Joi.number().default(6379),
     REDIS_PASSWORD: Joi.string().allow('').default(''),
