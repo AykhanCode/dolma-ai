@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
+import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 import { createLogger } from './shared/utils/logger';
 
 async function bootstrap() {
@@ -37,6 +38,7 @@ async function bootstrap() {
   );
 
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   await app.listen(port);
   logger.info(`Application is running on: http://localhost:${port}/${apiPrefix}`);
