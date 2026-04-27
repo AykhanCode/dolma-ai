@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dolma-ai-backend
+  labels:
+    app: dolma-ai-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dolma-ai-backend
+  template:
+    metadata:
+      labels:
+        app: dolma-ai-backend
+    spec:
+      containers:
+        - name: dolma-ai-backend
+          image: dolma-ai-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "3000"
+            - name: API_PREFIX
+              value: api/v1
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: dolma-secrets
+                  key: database_url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: dolma-secrets
+                  key: jwt_secret
+            - name: JWT_REFRESH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: dolma-secrets
+                  key: jwt_refresh_secret
+            - name: CLAUDE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: dolma-secrets
+                  key: claude_api_key
+            - name: WHATSAPP_VERIFY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: dolma-secrets
+                  key: whatsapp_verify_token
+            - name: INSTAGRAM_VERIFY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: dolma-secrets
+                  key: instagram_verify_token
+            - name: CORS_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: dolma-config
+                  key: cors_origins
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: dolma-config
+                  key: redis_host
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: dolma-config
+                  key: redis_port
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 30

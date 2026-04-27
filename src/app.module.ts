@@ -11,6 +11,8 @@ import { ContentModule } from './modules/content/content.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { StorageModule } from './modules/storage/storage.module';
+import { AiModule } from './modules/ai/ai.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { validateEnv } from './core/config/env.validation';
 
 @Module({
@@ -36,6 +38,8 @@ import { validateEnv } from './core/config/env.validation';
     AnalyticsModule,
     WebhooksModule,
     StorageModule,
+    AiModule,
+    AdminModule,
   ],
 })
 export class AppModule {}
