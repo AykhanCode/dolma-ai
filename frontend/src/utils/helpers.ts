@@ -14,6 +14,10 @@ export function getInitials(name: string): string {
     .slice(0, 2)
 }
 
+export function getDisplayName(user: { firstName?: string; lastName?: string; email?: string }): string {
+  return [user.firstName, user.lastName].filter(Boolean).join(' ') || user.email || ''
+}
+
 export function getAvatarColor(str: string): string {
   const colors = [
     'bg-red-500',

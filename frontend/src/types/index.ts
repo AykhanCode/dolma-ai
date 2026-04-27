@@ -2,7 +2,8 @@
 export interface User {
   id: string
   email: string
-  name: string
+  firstName?: string
+  lastName?: string
   role: UserRole
   avatar?: string
   createdAt: string
@@ -24,7 +25,8 @@ export interface LoginDto {
 export interface SignupDto {
   email: string
   password: string
-  name: string
+  firstName?: string
+  lastName?: string
   role?: UserRole
 }
 

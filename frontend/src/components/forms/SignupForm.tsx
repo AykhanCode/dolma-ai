@@ -30,7 +30,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
 
   const onSubmit = async (data: SignupFormData) => {
     try {
-      await signup(data.email, data.password, data.name, data.role)
+      await signup(data.email, data.password, data.firstName, data.lastName, data.role)
       toast.success('Account created successfully!')
       onSuccess()
     } catch (err: unknown) {
@@ -41,15 +41,25 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      <Input
-        label="Full name"
-        type="text"
-        placeholder="John Smith"
-        leftIcon={<User className="w-4 h-4" />}
-        error={errors.name?.message}
-        autoComplete="name"
-        {...register('name')}
-      />
+      <div className="grid grid-cols-2 gap-3">
+        <Input
+          label="First name"
+          type="text"
+          placeholder="John"
+          leftIcon={<User className="w-4 h-4" />}
+          error={errors.firstName?.message}
+          autoComplete="given-name"
+          {...register('firstName')}
+        />
+        <Input
+          label="Last name"
+          type="text"
+          placeholder="Smith"
+          error={errors.lastName?.message}
+          autoComplete="family-name"
+          {...register('lastName')}
+        />
+      </div>
 
       <Input
         label="Email address"

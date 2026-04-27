@@ -3,7 +3,7 @@ import { Bell, ChevronDown, Menu, Moon, Search, Sun } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
 import { useBusinessStore } from '@/store/businessStore'
 import { useUiStore } from '@/store/uiStore'
-import { getInitials, getAvatarColor } from '@/utils/helpers'
+import { getInitials, getAvatarColor, getDisplayName } from '@/utils/helpers'
 
 export function Header() {
   const { user, logout } = useAuthStore()
@@ -91,15 +91,15 @@ export function Header() {
         <div className="relative group">
           <button className="flex items-center gap-2 p-1 rounded-lg hover:bg-neutral-100 transition-colors">
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold ${getAvatarColor(user.name)}`}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold ${getAvatarColor(`${user.firstName ?? ''}${user.lastName ?? ''}`)}`}
             >
-              {getInitials(user.name)}
+              {getInitials(getDisplayName(user) || user.email)}
             </div>
             <ChevronDown className="w-3 h-3 text-neutral-400 hidden sm:block" />
           </button>
           <div className="absolute top-full right-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 py-1 hidden group-hover:block z-50">
             <div className="px-4 py-2 border-b border-neutral-100">
-              <p className="text-sm font-medium text-neutral-900">{user.name}</p>
+              <p className="text-sm font-medium text-neutral-900">{getDisplayName(user)}</p>
               <p className="text-xs text-neutral-500">{user.email}</p>
             </div>
             <Link to="/settings" className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50">Settings</Link>
