@@ -1,6 +1,7 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { IsString, IsOptional, IsArray } from 'class-validator';
 import { ClaudeService, GenerateResponseResult } from './claude.service';
+import { JwtAuthGuard } from '../../core/guards/jwt.guard';
 
 class GenerateDto {
   @IsString()
@@ -16,6 +17,7 @@ class GenerateDto {
 }
 
 @Controller('ai')
+@UseGuards(JwtAuthGuard)
 export class AiController {
   constructor(private readonly claudeService: ClaudeService) {}
 

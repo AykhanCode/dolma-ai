@@ -90,11 +90,7 @@ export class ClaudeService {
   }
 
   async countTokens(text: string): Promise<number> {
-    // Approximate token count: ~4 characters per token
+    // Approximate token count: ~4 characters per token (known approximation)
     return Math.ceil(text.length / 4);
-  }
-
-  formatPrompt(systemPrompt: string, userMessage: string): string {
-    return `${systemPrompt}\n\nUser: ${userMessage}`;
   }
 }

@@ -17,7 +17,10 @@ export class AdminService {
     return this.userRepository.find({ order: { createdAt: 'DESC' } });
   }
 
-  async suspendUser(id: string): Promise<User> {
+  async suspendUser(id: string, requestingUserId?: string): Promise<User> {
+    if (id === requestingUserId) {
+      throw new Error('Admins cannot suspend their own account');
+    }
     const user = await this.userRepository.findOneOrFail({ where: { id } });
     user.status = 'suspended';
     return this.userRepository.save(user);
