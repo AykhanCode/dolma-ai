@@ -29,7 +29,7 @@ const renderSignupForm = () =>
 describe('SignupForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(useAuthStore as ReturnType<typeof vi.fn>).mockReturnValue({
+    ;vi.mocked(useAuthStore).mockReturnValue({
       signup: mockSignup,
       isLoading: false,
     })
@@ -137,7 +137,7 @@ describe('SignupForm Component', () => {
   })
 
   it('should disable button when loading', () => {
-    ;(useAuthStore as ReturnType<typeof vi.fn>).mockReturnValue({
+    ;vi.mocked(useAuthStore).mockReturnValue({
       signup: mockSignup,
       isLoading: true,
     })

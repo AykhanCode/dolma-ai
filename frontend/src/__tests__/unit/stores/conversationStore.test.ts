@@ -33,8 +33,10 @@ const sampleMessage: Message = {
   id: 'msg-1',
   conversationId: '1',
   content: 'Hello!',
-  role: 'user',
-} as Message
+  type: 'text',
+  sender: 'customer',
+  createdAt: new Date().toISOString(),
+}
 
 describe('conversationStore', () => {
   beforeEach(() => {
