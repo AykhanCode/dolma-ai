@@ -36,7 +36,8 @@ describe('Validators', () => {
   describe('signupSchema', () => {
     it('should validate complete signup data', async () => {
       const validData = {
-        name: 'John Doe',
+        firstName: 'John',
+        lastName: 'Doe',
         email: 'john@example.com',
         password: 'SecurePassword123!',
         confirmPassword: 'SecurePassword123!',
@@ -49,7 +50,8 @@ describe('Validators', () => {
 
     it('should reject mismatched passwords', async () => {
       const invalidData = {
-        name: 'John Doe',
+        firstName: 'John',
+        lastName: 'Doe',
         email: 'john@example.com',
         password: 'SecurePassword123!',
         confirmPassword: 'DifferentPassword!',
@@ -61,7 +63,8 @@ describe('Validators', () => {
 
     it('should reject if terms not accepted', async () => {
       const invalidData = {
-        name: 'John Doe',
+        firstName: 'John',
+        lastName: 'Doe',
         email: 'john@example.com',
         password: 'SecurePassword123!',
         confirmPassword: 'SecurePassword123!',
@@ -73,7 +76,8 @@ describe('Validators', () => {
 
     it('should reject password without uppercase letter', async () => {
       const invalidData = {
-        name: 'John Doe',
+        firstName: 'John',
+        lastName: 'Doe',
         email: 'john@example.com',
         password: 'password123',
         confirmPassword: 'password123',
@@ -84,7 +88,8 @@ describe('Validators', () => {
 
     it('should reject password without number', async () => {
       const invalidData = {
-        name: 'John Doe',
+        firstName: 'John',
+        lastName: 'Doe',
         email: 'john@example.com',
         password: 'PasswordOnly!',
         confirmPassword: 'PasswordOnly!',
@@ -95,7 +100,8 @@ describe('Validators', () => {
 
     it('should reject short name', async () => {
       const invalidData = {
-        name: 'J',
+        firstName: '',
+        lastName: '',
         email: 'john@example.com',
         password: 'SecurePassword123!',
         confirmPassword: 'SecurePassword123!',

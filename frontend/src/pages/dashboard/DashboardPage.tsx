@@ -63,7 +63,7 @@ export function DashboardPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-neutral-900">
-            Welcome back, {user?.name?.split(' ')[0] ?? 'there'} 👋
+            Welcome back, {user?.firstName ?? 'there'} 👋
           </h1>
           <p className="text-sm text-neutral-500 mt-1">
             Here's what's happening with your AI agents today.

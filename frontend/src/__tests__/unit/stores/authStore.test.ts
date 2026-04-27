@@ -80,7 +80,7 @@ describe('authStore', () => {
       const { result } = renderHook(() => useAuthStore())
 
       await act(async () => {
-        await result.current.signup('new@example.com', 'Password123!', 'New User', 'admin')
+        await result.current.signup('new@example.com', 'Password123!', 'New', 'User', 'admin')
       })
 
       expect(result.current.user).toEqual(mockResponse.user)
@@ -95,7 +95,7 @@ describe('authStore', () => {
       const { result } = renderHook(() => useAuthStore())
 
       await act(async () => {
-        await expect(result.current.signup('existing@example.com', 'Password123!', 'User')).rejects.toThrow()
+        await expect(result.current.signup('existing@example.com', 'Password123!', 'Existing', 'User')).rejects.toThrow()
       })
 
       expect(result.current.isAuthenticated).toBe(false)

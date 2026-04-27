@@ -37,7 +37,8 @@ describe('SignupForm Component', () => {
 
   it('should render all form fields', () => {
     renderSignupForm()
-    expect(screen.getByPlaceholderText('John Smith')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('John')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Smith')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('you@example.com')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('Min 8 characters')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('Repeat your password')).toBeInTheDocument()
@@ -72,7 +73,8 @@ describe('SignupForm Component', () => {
     const user = userEvent.setup()
     renderSignupForm()
 
-    await user.type(screen.getByPlaceholderText('John Smith'), 'John Doe')
+    await user.type(screen.getByPlaceholderText('John'), 'John')
+    await user.type(screen.getByPlaceholderText('Smith'), 'Doe')
     await user.type(screen.getByPlaceholderText('you@example.com'), 'test@example.com')
     await user.type(screen.getByPlaceholderText('Min 8 characters'), 'Password123!')
     await user.type(screen.getByPlaceholderText('Repeat your password'), 'DifferentPassword!')
@@ -88,7 +90,8 @@ describe('SignupForm Component', () => {
     const user = userEvent.setup()
     renderSignupForm()
 
-    await user.type(screen.getByPlaceholderText('John Smith'), 'John Doe')
+    await user.type(screen.getByPlaceholderText('John'), 'John')
+    await user.type(screen.getByPlaceholderText('Smith'), 'Doe')
     await user.type(screen.getByPlaceholderText('you@example.com'), 'john@example.com')
     await user.type(screen.getByPlaceholderText('Min 8 characters'), 'Password123!')
     await user.type(screen.getByPlaceholderText('Repeat your password'), 'Password123!')
@@ -102,7 +105,8 @@ describe('SignupForm Component', () => {
       expect(mockSignup).toHaveBeenCalledWith(
         'john@example.com',
         'Password123!',
-        'John Doe',
+        'John',
+        'Doe',
         expect.any(String),
       )
     })
@@ -113,7 +117,8 @@ describe('SignupForm Component', () => {
     const user = userEvent.setup()
     renderSignupForm()
 
-    await user.type(screen.getByPlaceholderText('John Smith'), 'John Doe')
+    await user.type(screen.getByPlaceholderText('John'), 'John')
+    await user.type(screen.getByPlaceholderText('Smith'), 'Doe')
     await user.type(screen.getByPlaceholderText('you@example.com'), 'john@example.com')
     await user.type(screen.getByPlaceholderText('Min 8 characters'), 'Password123!')
     await user.type(screen.getByPlaceholderText('Repeat your password'), 'Password123!')

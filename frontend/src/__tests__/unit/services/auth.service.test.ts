@@ -24,7 +24,8 @@ describe('authService', () => {
       const mockResponse = {
         data: {
           user: { id: '1', email: 'test@example.com', firstName: 'Test', lastName: 'User' },
-          tokens: { accessToken: 'access-token', refreshToken: 'refresh-token' },
+          accessToken: 'access-token',
+          refreshToken: 'refresh-token',
         },
       }
       mockPost.mockResolvedValue(mockResponse)
@@ -35,7 +36,10 @@ describe('authService', () => {
         email: 'test@example.com',
         password: 'Password123',
       })
-      expect(result).toEqual(mockResponse.data)
+      expect(result).toEqual({
+        user: mockResponse.data.user,
+        tokens: { accessToken: 'access-token', refreshToken: 'refresh-token' },
+      })
     })
   })
 
@@ -44,7 +48,8 @@ describe('authService', () => {
       const mockResponse = {
         data: {
           user: { id: '1', email: 'new@example.com' },
-          tokens: { accessToken: 'token', refreshToken: 'refresh' },
+          accessToken: 'token',
+          refreshToken: 'refresh',
         },
       }
       mockPost.mockResolvedValue(mockResponse)
@@ -52,14 +57,18 @@ describe('authService', () => {
       const result = await authService.signup({
         email: 'new@example.com',
         password: 'Password123!',
-        name: 'New User',
-      } as never)
+        firstName: 'New',
+        lastName: 'User',
+      })
 
       expect(mockPost).toHaveBeenCalledWith('/auth/signup', expect.objectContaining({
         email: 'new@example.com',
         password: 'Password123!',
       }))
-      expect(result).toEqual(mockResponse.data)
+      expect(result).toEqual({
+        user: mockResponse.data.user,
+        tokens: { accessToken: 'token', refreshToken: 'refresh' },
+      })
     })
   })
 

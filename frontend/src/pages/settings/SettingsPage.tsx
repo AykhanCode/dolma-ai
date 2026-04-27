@@ -21,10 +21,10 @@ export function SettingsPage() {
           <CardTitle className="mb-5">Profile Information</CardTitle>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
-              {user?.name?.[0] || 'U'}
+              {user?.firstName?.[0] || 'U'}
             </div>
             <div>
-              <p className="font-semibold text-neutral-900">{user?.name}</p>
+              <p className="font-semibold text-neutral-900">{[user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.email}</p>
               <p className="text-sm text-neutral-500">{user?.email}</p>
               <span className="text-xs bg-primary-light text-primary-700 px-2 py-0.5 rounded-full capitalize mt-1 inline-block">
                 {user?.role}
@@ -32,7 +32,10 @@ export function SettingsPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Full name" defaultValue={user?.name} />
+            <Input label="First name" defaultValue={user?.firstName} />
+            <Input label="Last name" defaultValue={user?.lastName} />
+          </div>
+          <div className="mt-4">
             <Input label="Email" type="email" defaultValue={user?.email} />
           </div>
           <Button className="mt-4">Save Changes</Button>
