@@ -16,7 +16,7 @@ vi.mock('react-hot-toast', () => ({
   },
 }))
 
-const mockUseAuthStore = useAuthStore as ReturnType<typeof vi.fn>
+const mockUseAuthStore = vi.mocked(useAuthStore)
 
 function renderLoginForm(onSuccess = vi.fn()) {
   return render(
