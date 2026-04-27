@@ -3,7 +3,7 @@ import { Bell, ChevronDown, Menu, Moon, Search, Sun } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
 import { useBusinessStore } from '@/store/businessStore'
 import { useUiStore } from '@/store/uiStore'
-import { getInitials, getAvatarColor } from '@/utils/helpers'
+import { getInitials, getAvatarColor, getDisplayName } from '@/utils/helpers'
 
 export function Header() {
   const { user, logout } = useAuthStore()
@@ -93,13 +93,13 @@ export function Header() {
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold ${getAvatarColor(`${user.firstName ?? ''}${user.lastName ?? ''}`)}`}
             >
-              {getInitials(`${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() || user.email)}
+              {getInitials(getDisplayName(user) || user.email)}
             </div>
             <ChevronDown className="w-3 h-3 text-neutral-400 hidden sm:block" />
           </button>
           <div className="absolute top-full right-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-neutral-200 py-1 hidden group-hover:block z-50">
             <div className="px-4 py-2 border-b border-neutral-100">
-              <p className="text-sm font-medium text-neutral-900">{[user.firstName, user.lastName].filter(Boolean).join(' ') || user.email}</p>
+              <p className="text-sm font-medium text-neutral-900">{getDisplayName(user)}</p>
               <p className="text-xs text-neutral-500">{user.email}</p>
             </div>
             <Link to="/settings" className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50">Settings</Link>

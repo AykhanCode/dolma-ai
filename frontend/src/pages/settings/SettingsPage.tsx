@@ -3,6 +3,7 @@ import { Card, CardTitle } from '@/components/common/Card'
 import { Button } from '@/components/common/Button'
 import { Input } from '@/components/common/Input'
 import { useAuthStore } from '@/store/authStore'
+import { getDisplayName } from '@/utils/helpers'
 import { Bell, Lock, Palette, Shield } from 'lucide-react'
 
 export function SettingsPage() {
@@ -24,7 +25,7 @@ export function SettingsPage() {
               {user?.firstName?.[0] || 'U'}
             </div>
             <div>
-              <p className="font-semibold text-neutral-900">{[user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.email}</p>
+              <p className="font-semibold text-neutral-900">{user ? getDisplayName(user) : ''}</p>
               <p className="text-sm text-neutral-500">{user?.email}</p>
               <span className="text-xs bg-primary-light text-primary-700 px-2 py-0.5 rounded-full capitalize mt-1 inline-block">
                 {user?.role}
